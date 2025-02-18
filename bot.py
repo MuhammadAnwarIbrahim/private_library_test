@@ -9,6 +9,7 @@ else:
 
 from user import User
 
+from sesi import tg_user_session_name
 
 class Bot(Client):
     USER: User = None
@@ -16,7 +17,7 @@ class Bot(Client):
 
     def __init__(self):
         super().__init__(
-            "oxmohsen_bot",
+            tg_user_session_name,
             api_hash=Config.API_HASH,
             api_id=Config.APP_ID,
             bot_token=Config.TG_BOT_TOKEN,
@@ -25,7 +26,7 @@ class Bot(Client):
         )
         self.LOGGER = LOGGER
 
-    async def start(self):
+    async def start(self, use_qr=False, *args, **kwargs):
         await super().start()
         usr_bot_me = await self.get_me()
         self.set_parse_mode(enums.ParseMode.HTML)
